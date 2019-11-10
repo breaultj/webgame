@@ -19,6 +19,7 @@ function Sprite(id,x,y,width,height,type,color="blue") {
    
   this.boundary = {};
   this.gravity = { x : 0, y : 0 };
+  this.velocity = { x : 0, y : 0 };
   this.rotation = { enabled : false, angle : 0, centerX: this.width / -2, centerY : this.height / -2 };
 }
 
@@ -43,8 +44,10 @@ Sprite.prototype.render = function(ctx) {
 }
 
 Sprite.prototype.update = function(delta) {
-   
+   this.x = this.x + this.velocity.x * delta;
+   this.y = this.y + this.velocity.y * delta;   
 }
+
 
 Sprite.prototype.setColor = function(color) {
 	 this.color = color;
@@ -56,4 +59,15 @@ Sprite.prototype.addBoundary = function(xb,yb,wb,hb) {
 
 Sprite.prototype.setRotation = function(enabled,angle,centerX,centerY) {
 	 this.rotation = { enabled : enabled, angle : angle, centerX: centerX, centerY : centerY };
+
+}
+
+Sprite.prototype.setVelocity = function(x,y) {
+   if (x !== undefined) {
+     this.velocity.x = x;
+   }
+
+   if (y !== undefined) {
+     this.velocity.y = y;
+   }
 }
